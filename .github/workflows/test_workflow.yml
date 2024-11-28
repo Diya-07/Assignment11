@@ -1,0 +1,37 @@
+name: Automated Testing Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install Dependencies
+      run: |
+        python3 -m pip install --upgrade pip
+
+    - name: Run Test Case 1
+      run: |
+        python3 find_lowest_number.py test_data/test1_input.txt test1_expected.txt
+        diff test1_output.txt test_data/test1_expected.txt
+
+    - name: Run Test Case 2
+      run: |
+        python3 find_lowest_number.py test_data/test2_input.txt test2_expected.txt
+        diff test2_output.txt test_data/test2_expected.txt
+
+    - name: Run Test Case 3
+      run: |
+        python3 find_lowest_number.py test_data/test3_input.txt test3_expected.txt
+        diff test3_output.txt test_data/test3_expected.txt
